@@ -1,0 +1,69 @@
+/* m.javier.games: the phone site. Same paper, ink and orange as the screen site. */
+:root {
+    --paper: #e4ebe8; --paper-deep: #c9d3cf; --card: #f3f7f5;
+    --ink: #23302e; --ink-soft: #5d6b68; --ghost: #a3b0ac; --line: #c3ccc9; --orange: #ec7a3c; --tint: #f9e4d6;
+    --pad: max(24px, env(safe-area-inset-left));
+}
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body {
+    margin: 0 auto; max-width: 460px; min-height: 100dvh;
+    padding: env(safe-area-inset-top) var(--pad) max(28px, calc(env(safe-area-inset-bottom) + 16px));
+    font: 600 14px 'Nunito Sans', sans-serif; letter-spacing: 0.02em; color: var(--ink); text-align: center;
+    background: radial-gradient(ellipse 140% 90% at 50% 30%, transparent 55%, var(--paper-deep) 100%) fixed, var(--paper);
+    -webkit-tap-highlight-color: transparent;
+}
+body::after { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: 0.12; mix-blend-mode: multiply;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .14 0 0 0 0 .19 0 0 0 0 .18 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* the picture: the drawing, where bio.site had the photo */
+.stage { position: relative; height: min(46vh, 360px); margin: 0 calc(-1 * var(--pad)); }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* the name, left-aligned under the drawing */
+header { text-align: left; }
+header > div::before { content: ''; display: block; width: 26px; height: 3px; margin-bottom: 14px; background: var(--orange); }
+.name { margin: 0; font: 900 30px/1 'Fraunces', serif; letter-spacing: 0.02em; }
+.role { margin-top: 10px; font: 600 10.5px 'Nunito Sans', sans-serif; letter-spacing: 0.26em; color: var(--ink-soft); }
+.role span { color: var(--orange); margin: 0 0.3em; }
+
+
+/* the reel: a card in the drawing's ink, opens Vimeo (lighter on a phone than the embedded player) */
+.reel { position: relative; display: block; margin: 28px 0 18px; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; color: var(--paper); text-decoration: none;
+    background: radial-gradient(circle at 30% 40%, rgba(236,122,60,.18), transparent 45%), radial-gradient(circle at 75% 70%, rgba(143,211,189,.12), transparent 50%), #1f2a28;
+    box-shadow: 0 10px 30px -16px rgba(35,48,46,.6); }
+.reel svg.rings { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .35; }
+.reel .play { position: absolute; left: 50%; top: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; background: var(--orange); display: grid; place-items: center; transition: transform .2s; }
+.reel .play::after { content: ''; margin-left: 4px; border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+.reel .cap { position: absolute; left: 16px; bottom: 13px; font: 800 11px 'Nunito Sans', sans-serif; letter-spacing: .24em; }
+.reel .len { position: absolute; right: 16px; bottom: 13px; font: 300 10px 'JetBrains Mono', monospace; opacity: .7; }
+
+/* the links: pills with a round badge, like bio.site */
+nav { display: flex; flex-direction: column; gap: 12px; }
+.link { display: flex; align-items: center; gap: 14px; height: 64px; padding: 0 20px 0 10px; border-radius: 32px; background: var(--card); color: var(--ink); text-decoration: none; text-align: left;
+    box-shadow: 0 1px 0 rgba(35,48,46,.05), 0 8px 20px -14px rgba(35,48,46,.4); transition: background .15s, transform .15s; }
+.link .badge { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: var(--paper); font: 800 13px 'Nunito Sans', sans-serif; letter-spacing: 0.02em; }
+.link .badge svg { width: 20px; height: 20px; }
+.link b { flex: 1; font: 700 16px 'Nunito Sans', sans-serif; letter-spacing: 0.02em; }
+.link i { flex: none; width: 12px; height: 12px; background: var(--ghost); transition: background .15s;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23000' stroke-width='1.6'%3E%3Cpath d='M5 1.5H1.5v9h9V7'/%3E%3Cpath d='M7 1h4v4M11 1 5.5 6.5'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23000' stroke-width='1.6'%3E%3Cpath d='M5 1.5H1.5v9h9V7'/%3E%3Cpath d='M7 1h4v4M11 1 5.5 6.5'/%3E%3C/svg%3E") center / contain no-repeat; }
+.link:active { background: var(--tint); transform: scale(.985); } .link:active i { background: var(--orange); }
+.reel:active .play { transform: scale(.94); }
+a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+@media (hover: hover) {
+    .link:hover { background: var(--tint); } .link:hover i { background: var(--orange); }
+    .reel:hover .play { transform: scale(1.06); }
+}
+
+/* email: the last pill, orange so it stands apart from the profiles */
+.link .addr { font-size: 12px; font-weight: 600; color: var(--ink-soft); }
+.link.is-mail .badge { background: var(--orange); color: #fff; }
+
+footer { margin-top: 34px; text-align: left; font: 300 10px 'JetBrains Mono', monospace; letter-spacing: 0.06em; color: var(--ghost); line-height: 2; }
+footer a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 1px; }
+
+header, .reel, nav, footer { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+.reel { animation-delay: .25s; } nav { animation-delay: .35s; } footer { animation-delay: .45s; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { header, .reel, nav, footer { animation: none; } }
